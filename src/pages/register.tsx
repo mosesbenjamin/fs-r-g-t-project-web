@@ -18,9 +18,9 @@ const Register: React.FC<registerProps> = ({}) => {
     const [, register] = useRegisterMutation();
         return (
             <Wrapper variant='small'>
-                <Formik initialValues={{username: "", password: ""}} 
+                <Formik initialValues={{email: "", username: "", password: ""}} 
                 onSubmit={async (values, { setErrors }) => {
-                    const response = await register(values)
+                    const response = await register({options: values})
                     if (response.data?.register.errors) {
                         [{field: 'username', message: 'something wrong'}]
                             setErrors(toErrorMap(response.data.register.errors))
@@ -37,20 +37,28 @@ const Register: React.FC<registerProps> = ({}) => {
                             />
                             <Box mt={4}>
                                 <InputField 
+                                name='email'
+                                placeholder="email"
+                                label="Email"
+                                />
+                            </Box>
+                            <Box mt={4}>
+                                <InputField 
                                 name='password'
                                 placeholder="password"
                                 label="Password"
                                 type="password"
                                 />
                             </Box>
-                            <Button 
-                                mt={4}
-                                type="submit" 
-                                isLoading={isSubmitting}
-                                colorScheme="teal"
-                                >
-                                regsiter
-                            </Button>
+                            <Box mt={4}>
+                                <Button 
+                                    type="submit" 
+                                    isLoading={isSubmitting}
+                                    colorScheme="teal"
+                                    >
+                                    regsiter
+                                </Button>
+                            </Box>
                         </Form>
                     )}
                 </Formik>

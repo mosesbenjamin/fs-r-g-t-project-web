@@ -15,9 +15,9 @@ const Login: React.FC<{}> = ({}) => {
     const [, login] = useLoginMutation();
         return (
             <Wrapper variant='small'>
-                <Formik initialValues={{username: "", password: ""}} 
+                <Formik initialValues={{usernameOrEmail: "", password: ""}} 
                 onSubmit={async (values, { setErrors }) => {
-                    const response = await login({ options: values })
+                    const response = await login(values)
                     if (response.data?.login.errors) {
                         [{field: 'username', message: 'something wrong'}]
                             setErrors(toErrorMap(response.data.login.errors))
@@ -28,9 +28,9 @@ const Login: React.FC<{}> = ({}) => {
                     {({isSubmitting}) => (
                         <Form>
                             <InputField 
-                             name='username'
-                             placeholder="username"
-                             label="Username"
+                             name='usernameOrEmail'
+                             placeholder="username or email"
+                             label="Username or Email"
                             />
                             <Box mt={4}>
                                 <InputField 
